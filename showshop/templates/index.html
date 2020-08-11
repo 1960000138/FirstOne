@@ -1,0 +1,119 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .left {
+        float: left;
+        font-size: 12px;
+    }
+
+    .right {
+        float: right;
+        font-size: 12px;
+    }
+    .content {
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        background: antiquewhite;
+    }
+
+    .title {
+        margin: 0 auto;
+        text-align: left;
+        line-height: 50px;
+        height: 50px;
+        background-color: aqua;
+        font-size: 12px;
+        margin-bottom: 30px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .shoplist {
+        width: 1500px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .shoplist li {
+        text-align: center;
+        width: 200px;
+        margin-left: 50px;
+        list-style: none;
+        margin: 1.5%;
+        border: darkgray 1px solid;
+        background-color: lightgray;
+    }
+
+    .shopname {
+        font-size: 18px;
+        float: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .shopimg {
+        margin-bottom: 5px;
+        height: 200px;
+        width: 200px;
+    }
+    .anniu{
+        width: 90px;
+        height: 40px;
+        float: left;
+        text-align: center;
+        margin-left: 5px;
+    }
+    .addshop{
+        width: 110px;
+        height: 40px;
+        margin-left: 50px;
+        text-align: center;
+        font-size: 20;
+    }
+    .dibu{
+        margin:0 auto;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <div class="title">
+            <h1>>>>网售商品展示>>></h1>
+        </div>
+        <div class="shoplist">
+            <ul class="shoplist">
+                {% for img in imgs %}
+                <li title="可比克60g薯片">
+                    <p><img src="./media/avatar/{{img}}" class="shopimg" style="width: 200px;height: 200px;">
+                        <p class="shopname">可比克60g薯片</p>
+                        <p class="left">库存：3000 份</p>
+                        <p class="right">删除</p>
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="dibu">
+                <input class="anniu" type="button" value="上一页">
+                <input class="anniu" type="text" value="1" disabled="disabled">
+                <input class="anniu" type="button" value="下一页">
+                <a href="#"><input class="addshop" type="button" value="添加商品"></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

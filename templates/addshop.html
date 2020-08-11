@@ -1,0 +1,176 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1-edb203c114.10.2.js"></script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        list-style: none;
+        text-decoration: none;
+        color: red;
+    }
+
+    .left {
+        float: left;
+        font-size: 16px;
+        padding-left: 3px;
+        padding-bottom: 5px;
+    }
+
+    .right {
+        float: right;
+        font-size: 16px;
+        padding-right: 8px;
+        padding-bottom: 5px;
+    }
+
+    .content {
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        background: url("/media/avatar/back.jpg") repeat-y;
+    }
+
+    .title {
+        margin: 0 auto;
+        text-align: left;
+        line-height: 50px;
+        color: salmon;
+        height: 60px;
+        font-size: 28px;
+        margin-bottom: 30px;
+        padding-top: 28px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .center {
+        width: 500px;
+        /* border: black 1px solid; */
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        /* position: absolute; */
+    }
+
+    div.img {
+        position: absolute;
+        top: 15%;
+        right: 20%;
+        width: 400px;
+        height: 400px;
+        overflow: hidden;
+        /* border: 1px solid gold; */
+    }
+
+    .spname {
+        clear: both;
+        margin: 0 auto;
+        width: 300px;
+        height: 50px;
+        font-size: 15px;
+        border-radius: 8px;
+        padding-left: 5px;
+        border: none;
+        margin-top: 20px;
+    }
+
+    .tj {
+        border: solid burlywood 1px;
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <h2 class="title">添加产品</h2>
+        <div class="center">
+            <form action="/addShop" method="get" enctype="multipart/form-data">
+                <br>
+                <input type="text" class="spname" name="spname" placeholder="产品名称">
+                <br><br>
+                <input type="number" class="spname" name="spcount" placeholder="产品库存">
+                <br><br>
+                是否自销：<input type="checkbox" name="iszx">
+                <br><br>
+                <input type="file" id="file" name="spimg"  onchange="setBlogrollImageName(this)" placeholder="产品图片">
+                <button type="button" onclick="upload()">hhh</button>
+                <input type="submit" name="tj" value="添加产品" class="spname tj">
+            </form>
+        </div>
+        <div class="img"></div>
+    </div>
+</body>
+<script>
+function upload() {
+var filename = document.getElementById("file").value;
+    // 这时的filename不是 importFile 框中的值
+    alert(filename);
+}
+function setBlogrollImageName(basicfile){
+document.getElementById("file").value=basicfile.value;
+}
+    function getPath(id) {
+        var imgURL = "";
+        var node = document.getElementById(id);
+        try {
+            if (node.files && node.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    imgURL = e.target.result;
+                    console.log(imgURL)
+                };
+                reader.readAsDataURL(node.files[0]);
+            }
+            var file = null;
+            if (node.files && node.files[0]) {
+                file = node.files[0];
+            } else if (node.files && node.files.item(0)) {
+                file = node.files.item(0);
+            }
+            //Firefox 因安全性问题已无法直接通过input[file].value 获取完整的文件路径
+            try {
+                //Firefox7.0
+                imgURL = file.getAsDataURL();
+                //alert("//Firefox7.0"+imgRUL);
+            } catch (e) {
+                //Firefox8.0以上
+                imgURL = window.URL.createObjectURL(file);
+                //alert("//Firefox8.0以上"+imgRUL);
+            }
+        } catch (e) {      //这里不知道怎么处理了，如果是遨游的话会报这个异常
+            //支持html5的浏览器,比如高版本的firefox、chrome、ie10
+            if (node.files && node.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    imgURL = e.target.result;
+                };
+                reader.readAsDataURL(node.files[0]);
+            }
+        }
+        return imgURL;
+    }
+     $(function () {
+         $("[type='file']").change(function (e) {     
+             if ($("img").length > 0) {
+                 $("img").remove();
+             }
+             let url = getPath("file")
+             let img = new Image()
+             img.src = url
+             img.style.width = "200px";
+             // img.style.width = "10%";
+             $("div.img").append(img);
+ 
+         });
+     });
+     
+</script>
+
+</html>
